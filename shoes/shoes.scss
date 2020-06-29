@@ -1,0 +1,230 @@
+@charset "utf-8";
+@import "animation";
+
+$screen-xl: 1199px;
+$screen-l: 991px;
+$screen-md: 767px;
+$screen-s: 575px;
+$screen-xs: 320px;
+$bp-list: (
+  xs: screen and
+    (
+      max-width: #{$screen-xs},
+    ),
+  s: screen and
+    (
+      max-width: #{$screen-s},
+    ),
+  md: screen and
+    (
+      max-width: #{$screen-md},
+    ),
+  l: screen and
+    (
+      max-width: #{$screen-l},
+    ),
+  xl: screen and
+    (
+      max-width: #{$screen-xl},
+    ),
+) !default;
+@mixin media($bp-key) {
+  @media #{map-get($bp-list, $bp-key)} {
+    @content;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+// nav
+
+.nav {
+  font-size: 15px;
+  width: 100vw;
+  height: 60px;
+  background-color: transparent;
+  position: fixed;
+  z-index: 200;
+
+  .logo {
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translateY(-50%);
+
+    @include media(s) {
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    a {
+      font-family: "Great Vibes", cursive;
+      color: white;
+      text-decoration: none;
+      font-size: 30px;
+    }
+  }
+
+  .nav-list {
+    font-family: "Times New Roman";
+    letter-spacing: 2px;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+
+    @include media(s) {
+      top: 60%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    ul {
+      list-style: none;
+
+      @include media(s) {
+        display: flex;
+        justify-content: space-around;
+        width: 100vw;
+        padding-left: 0;
+      }
+
+      li {
+        display: inline-block;
+        margin-left: 20px;
+
+        @include media(s) {
+          margin-left: 0;
+        }
+
+        a {
+          text-decoration: none;
+          color: white;
+        }
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+  &.hide {
+    opacity: 0;
+    @include animation($name: show-up, $duration: 6s, $timing-function: ease);
+  }
+}
+
+// black
+.black {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  opacity: 1;
+  @include animation($name: show-black, $duration: 7s, $timing-function: ease);
+
+  .first-letter {
+    font-family: "Cantata One", serif;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 101;
+    color: white;
+    font-size: 50px;
+    opacity: 0;
+    @include animation(
+      $name: show-letter,
+      $duration: 3s,
+      $delay: 2s,
+      $timing-function: ease
+    );
+
+    @include media(s) {
+      font-size: 30px;
+    }
+  }
+}
+
+// images
+
+.images {
+  img {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    &.img4,
+    &.img3,
+    &.img2 {
+      display: none;
+    }
+  }
+}
+
+// animation
+
+@keyframes show-black {
+  0% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+@keyframes show-letter {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes show-up {
+  0% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes show-img {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
